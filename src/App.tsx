@@ -10,6 +10,7 @@ import { Forums } from './pages/Forums';
 import { Calendar } from './pages/Calendar';
 import { People } from './pages/People';
 import { Settings } from './pages/Settings';
+import { Payments } from './pages/Payments';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { useAuth } from './store/auth';
 
@@ -29,6 +30,7 @@ export function App() {
             <Route path="/forums" element={<Forums />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/people" element={<People />} />
+            <Route path="/payments" element={<Payments />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Route>

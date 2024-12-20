@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../store/auth';
 import { cn } from '../lib/utils';
 import {
   LayoutDashboard,
@@ -10,6 +11,7 @@ import {
   Calendar,
   Settings,
   Video,
+  CreditCard,
   X
 } from 'lucide-react';
 
@@ -18,19 +20,22 @@ interface SidebarProps {
   onClose: () => void;
 }
 
-const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Online Sessions', href: '/sessions', icon: Video },
-  { name: 'Courses', href: '/courses', icon: BookOpen },
-  { name: 'Assignments', href: '/assignments', icon: FileText },
-  { name: 'Forums', href: '/forums', icon: MessageSquare },
-  { name: 'Calendar', href: '/calendar', icon: Calendar },
-  { name: 'People', href: '/people', icon: Users },
-  { name: 'Settings', href: '/settings', icon: Settings },
-];
-
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation();
+  const { user } = useAuth();
+
+  const navigation = [
+    { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+    { name: 'Online Sessions', href: '/sessions', icon: Video },
+    { name: 'Courses', href: '/courses', icon: BookOpen },
+    { name: 'Assignments', href: '/assignments', icon: FileText },
+    { name: 'Forums', href: '/forums', icon: MessageSquare },
+    { name: 'Calendar', href: '/calendar', icon: Calendar },
+    { name: 'People', href: '/people', icon: Users },
+    // Show payments only for students
+    ...(user?.role === 'student' ? [{ name: 'Payments', href: '/payments', icon: CreditCard }] : []),
+    { name: 'Settings', href: '/settings', icon: Settings },
+  ];
 
   return (
     <>
